@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map with Reviews & Images</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <link rel="stylesheet" href="/static/css/style.css">
+  <title>Menu</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .menu-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .menu-box h1 {
+      margin-bottom: 30px;
+    }
+
+    .menu-box a {
+      display: block;
+      margin: 15px 0;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .menu-box a:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="/static/js/map.js"></script>
+  <div class="menu-container">
+    <div class="menu-box">
+      <h1>Main Menu</h1>
+      <a href="{{ url_for('maps') }}">Home / Map</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
 </body>
 </html>

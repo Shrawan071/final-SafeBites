@@ -38,7 +38,7 @@ map.on('click', function(e) {
         event.preventDefault();
         const formData = new FormData(event.target);
 
-        fetch("/add_pin", {
+        fetch("/maps/add_pin", {
             method: "POST",
             body: formData
         })
@@ -51,7 +51,7 @@ map.on('click', function(e) {
 });
 
 function loadPins() {
-    fetch('/get_pins')
+    fetch('/maps/get_pins')
         .then(res => res.json())
         .then(pins => {
             pins.forEach(([lat, lng, review, rating, image]) => {
