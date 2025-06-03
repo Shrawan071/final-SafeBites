@@ -6,3 +6,5 @@ git status
 git add .
 git commit -m "Fixed bug in login logic and updated README"
 git push
+
+USe it wisely
