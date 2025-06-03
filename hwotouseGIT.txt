@@ -5,6 +5,6 @@ git init
 git status
 git add .
 git commit -m "Fixed bug in login logic and updated README"
-git push
-
+git remote add origin https://github.com/yourusername/your-repo-name.git
+git push -u origin master
 USe it wisely
