@@ -25,7 +25,15 @@ def init_db():
 def index():
     return render_template("index.html")
 
-@app.route('/add_pin', methods=['POST'])
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+@app.route('/maps')
+def maps():
+    return render_template("maps.html")
+
+@app.route('/maps/add_pin', methods=['POST'])
 def add_pin():
     lat = float(request.form['lat'])
     lng = float(request.form['lng'])
@@ -43,7 +51,7 @@ def add_pin():
 
     return jsonify({"status": "success"})
 
-@app.route('/get_pins')
+@app.route('/maps/get_pins')
 def get_pins():
     with sqlite3.connect("database.db") as conn:
         pins = conn.execute("SELECT lat, lng, review, rating , image FROM pins").fetchall()
