@@ -1,23 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Upload</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload | AI Companion</title>
+  <style>
+    :root {
+      --primary-color: #ff7043;
+      --secondary-color: #f5f5f5;
+      --text-color: #333;
+      --accent-color: #4caf50;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .upload-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e64a19;
+    }
+
+    .result {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .result img {
+      display: block;
+      margin-top: 1rem;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Upload Text and Image</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="user_text" placeholder="Enter text"><br><br>
-        <input type="file" name="image_file" accept="image/*"><br><br>
+
+  <header>
+    <h1>Upload Text & Image</h1>
+    <p>Empowered by AI — Styled with painful amont of searching on the internet and giving up cuz i dont know shit about front end</p>
+  </header>
+
+  <div class="container">
+    <div class="upload-card">
+      <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="user_text" placeholder="Enter some thoughts...">
+        <input type="file" name="image_file" accept="image/*">
         <button type="submit">Submit</button>
-    </form>
+      </form>
+    </div>
 
     {% if output_text %}
-        <h2>Result:</h2>
-        <p>{{ output_text }}</p>
+    <div class="result">
+      <h2>🧠 AI Response:</h2>
+      <p>{{ output_text }}</p>
+    </div>
     {% endif %}
 
     {% if image_url %}
-        <img src="{{ image_url }}" width="300">
+    <div class="result">
+      <h2>📸 Uploaded Image:</h2>
+      <img src="{{ image_url }}" alt="Uploaded image preview">
+    </div>
     {% endif %}
+  </div>
+
 </body>
 </html>

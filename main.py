@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, session, redirect, url_for, session
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
 from AIshit.genAi import ProtocolGenerateContent
 
 app = Flask(__name__)
+app.secret_key = 'something_secure'
 
 # Folder setup
 PERM_UPLOAD_FOLDER = 'uploads'
@@ -60,22 +61,31 @@ def ai():
         if image_file and image_file.filename:
             filename = secure_filename(image_file.filename)
             image_path = os.path.join(app.config['TEMP_UPLOAD_FOLDER'], filename)
-            print(image_path)
             image_file.save(image_path)
             image_url = f"/temp_uploads/{filename}"
-            content = "Tell me the possible allergent in the following food and a general overview on what should i eat with it or after it to maintain a balanced diet. Also some good advise on what maight pair best with the given food and other small tips."
 
-            cam = ProtocolGenerateContent(cnt = content, path=image_path)
+            content = (
+                "Tell me the possible allergent in the following food and a general overview "
+                "on what should I eat with it or after it to maintain a balanced diet. Also some good "
+                "advice on what might pair best with the given food and other small tips. "
+                "IMPORTANTLY: Make it short sweet and understandable in paragraph format and no **. "
+                f"additional info {user_text}"
+            )
+
+            cam = ProtocolGenerateContent(cnt=content, path=image_path)
             res = cam.InputImage()
-        else:
-            filename = "No image uploaded"
-        
-        
+            # Save to session or temp var to flash it during GET
+            session['output_text'] = res
+            session['image_url'] = image_url
 
-        output_text = f"Hello World! You sent text: '{user_text}' and image filename: '{filename} \n {res}'"
-        
+        return redirect(url_for('ai'))  # This triggers a fresh GET
+
+    # Handle the redirected GET
+    output_text = session.pop('output_text', None)
+    image_url = session.pop('image_url', None)
 
     return render_template('ai.html', output_text=output_text, image_url=image_url)
+    
 
 
 
