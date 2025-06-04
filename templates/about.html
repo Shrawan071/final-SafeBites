@@ -1,12 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Page </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | SafeBites</title>
+  <style>
+    :root {
+      --primary-color: #ff7043;
+      --secondary-color: #f5f5f5;
+      --text-color: #333;
+      --accent-color: #4caf50;
+    }
 
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    section h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>About Page</h1>
+
+  <header>
+    <h1>About SafeBites</h1>
+    <p>Your Smart Travel Companion for Healthy, Tasty Food</p>
+  </header>
+
+  <div class="container">
+
+    <section>
+      <h2>🌍 Why We Built This</h2>
+      <p>
+        Traveling to new places often forces people to eat outside their homes. But finding food that’s both hygienic and tasty in unfamiliar areas can be difficult. There’s no reliable way to know which restaurants maintain good standards.
+      </p>
+    </section>
+
+    <section>
+      <h2>🧠 What is SafeBites?</h2>
+      <p>
+        SafeBites is a smart food discovery and review platform that helps users find clean, healthy, and delicious food wherever they travel. By combining user reviews with AI analysis, we help users make informed decisions about where and what to eat.
+      </p>
+    </section>
+
+    <section>
+      <h2>⚙️ Key Features</h2>
+      <ul>
+        <li>🗺️ Google Maps Integration: Find restaurants near you on an interactive map.</li>
+        <li>✍️ User Reviews: Write and read reviews focused on taste and hygiene.</li>
+        <li>🧼 AI-Purified Comments: Filters fake/spammy reviews to keep content clean.</li>
+        <li>📸 AI Food Analyzer: Upload food photos to get nutritional and hygiene analysis.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>👥 Target Users</h2>
+      <ul>
+        <li>Travelers exploring new places</li>
+        <li>Health-conscious individuals</li>
+        <li>Food lovers looking for trusted recommendations</li>
+        <li>Anyone who cares about clean, quality meals</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>💻 Technology Stack</h2>
+      <ul>
+        <li><strong>Frontend:</strong> HTML,CSS</li>
+        <li><strong>Backend:</strong> Python</li>
+        <li><strong>AI/ML:</strong> Google Gemini</li>
+        <li><strong>Database:</strong>SQLite</li>
+        <li><strong>Authentication:</strong> Clerk</li>
+        <li><strong>Maps API:</strong>Leaflet.js</li>
+      
+      </ul>
+    </section>
+
+    <section>
+      <h2>🚀 Our Vision</h2>
+      <p>
+        We aim to build a trustworthy food ecosystem for travelers and locals alike — where people can confidently eat well without compromising their health. Future plans include verified hygiene certifications, food safety alerts, and real-time ratings.
+      </p>
+    </section>
+
+    <section>
+      <h2>👨‍💻 Meet the Team</h2>
+      <p>
+        Developed during a 72-hour hackathon by passionate students from BSc. CSIT(Team-CodeNest), dedicated to solving real-world food and health challenges using AI and the power of community.
+      </p>
+    </section>
+
+  </div>
+
 </body>
 </html>
