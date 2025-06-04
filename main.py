@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
+from AIshit.genAi import ProtocolGenerateContent
 
 app = Flask(__name__)
 
@@ -9,6 +10,10 @@ app = Flask(__name__)
 PERM_UPLOAD_FOLDER = 'uploads'
 app.config['PERM_UPLOAD_FOLDER'] = PERM_UPLOAD_FOLDER
 os.makedirs(PERM_UPLOAD_FOLDER, exist_ok=True)
+
+TEMP_UPLOAD_FOLDER = 'temp_uploads'
+app.config['TEMP_UPLOAD_FOLDER'] = TEMP_UPLOAD_FOLDER
+os.makedirs(TEMP_UPLOAD_FOLDER, exist_ok=True)
 
 # Database init
 def init_db():
@@ -46,17 +51,32 @@ def maps():
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
     output_text = None
+    image_url = None
 
     if request.method == 'POST':
         user_text = request.form.get('user_text')
         image_file = request.files.get('image_file')
 
-        # For now, just confirm text received and image filename (no saving needed)
-        image_name = image_file.filename if image_file else 'No image uploaded'
+        if image_file and image_file.filename:
+            filename = secure_filename(image_file.filename)
+            image_path = os.path.join(app.config['TEMP_UPLOAD_FOLDER'], filename)
+            print(image_path)
+            image_file.save(image_path)
+            image_url = f"/temp_uploads/{filename}"
+            content = "Tell me the possible allergent in the following food and a general overview on what should i eat with it or after it to maintain a balanced diet. Also some good advise on what maight pair best with the given food and other small tips."
 
-        output_text = f"Hello World! You sent text: '{user_text}' and image filename: '{image_name}'"
+            cam = ProtocolGenerateContent(cnt = content, path=image_path)
+            res = cam.InputImage()
+        else:
+            filename = "No image uploaded"
+        
+        
 
-    return render_template('ai.html', output_text=output_text)
+        output_text = f"Hello World! You sent text: '{user_text}' and image filename: '{filename} \n {res}'"
+        
+
+    return render_template('ai.html', output_text=output_text, image_url=image_url)
+
 
 
 #additional functions
@@ -111,6 +131,10 @@ def get_replies(pin_id):
     return jsonify(replies)
 
 # Serve uploaded images
+@app.route('/temp_uploads/<filename>')
+def temp_uploaded_file(filename):
+    return send_from_directory(app.config['TEMP_UPLOAD_FOLDER'], filename)
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['PERM_UPLOAD_FOLDER'], filename)
