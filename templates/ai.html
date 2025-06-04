@@ -1,27 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Upload Page</title>
+    <title>AI Upload</title>
 </head>
 <body>
-    <h1>Upload Image and Enter Text</h1>
+    <h1>Upload Text and Image</h1>
     <form method="POST" enctype="multipart/form-data">
-        <label for="image_file">Choose Image:</label>
-        <input type="file" id="image_file" name="image_file" accept="image/*" required />
-        <br><br>
-        <label for="user_text">Enter Text:</label>
-        <input type="text" id="user_text" name="user_text" required />
-        <br><br>
+        <input type="text" name="user_text" placeholder="Enter text"><br><br>
+        <input type="file" name="image_file" accept="image/*"><br><br>
         <button type="submit">Submit</button>
     </form>
 
     {% if output_text %}
-    <h2>Result:</h2>
-    <p>{{ output_text }}</p>
+        <h2>Result:</h2>
+        <p>{{ output_text }}</p>
     {% endif %}
-    
-    <br>
-    <a href="/">Back to Home</a>
+
+    {% if image_url %}
+        <img src="{{ image_url }}" width="300">
+    {% endif %}
 </body>
 </html>

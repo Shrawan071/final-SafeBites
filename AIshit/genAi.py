@@ -24,9 +24,4 @@ class ProtocolGenerateContent:
         except Exception as e:
             pass
 
-content = "Tell me the nurtitional value of the food given in the picture and sugegst me thing that can help me improve it."
-path = "Image\\ppr.jpg"
-cam = ProtocolGenerateContent(cnt = content, path=path)
 
-res = cam.InputImage()
-print(res)
