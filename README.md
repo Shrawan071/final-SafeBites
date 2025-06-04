@@ -33,3 +33,6 @@ had our first meeting , got some suggestion . Will implement it ASAP
 
 Test log 11:
 I hate front end and desigining I lack creativity, I need a glass of chilled beer and a shit ton of snacks to deal with it
+
+Test log 12: 
+The hell did I do with git... but hey i made the ui for the damn gemini
