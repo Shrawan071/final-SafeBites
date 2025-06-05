@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory, session, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, send_from_directory, session, redirect, url_for, session, Response
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
+import cv2
 from AIshit.genAi import ProtocolGenerateContent
 
 app = Flask(__name__)
@@ -15,6 +16,29 @@ os.makedirs(PERM_UPLOAD_FOLDER, exist_ok=True)
 TEMP_UPLOAD_FOLDER = 'temp_uploads'
 app.config['TEMP_UPLOAD_FOLDER'] = TEMP_UPLOAD_FOLDER
 os.makedirs(TEMP_UPLOAD_FOLDER, exist_ok=True)
+
+camera = cv2.VideoCapture(0)
+
+def gen_frames():
+    while True:
+        success, frame = camera.read()
+        if not success:
+            break
+        else:
+            # Get frame dimensions
+            height, width, _ = frame.shape
+            center_x, center_y = width // 2, height // 2
+
+            # Draw a blue circle in the center
+            cv2.circle(frame, (center_x, center_y), 40, (255, 0, 0), 4)  # BGR color
+
+            # Encode frame as JPEG
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+
+            # Yield frame
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 # Database init
 def init_db():
@@ -87,7 +111,9 @@ def ai():
 
     return render_template('ai.html', output_text=output_text, image_url=image_url)
     
-
+@app.route('/video')
+def video():
+    return render_template('video.html')
 
 
 #additional functions
@@ -149,6 +175,11 @@ def temp_uploaded_file(filename):
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['PERM_UPLOAD_FOLDER'], filename)
+
+
+@app.route('/video/video_feed')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
