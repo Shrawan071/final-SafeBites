@@ -65,6 +65,7 @@ def ai():
             image_url = f"/temp_uploads/{filename}"
 
             content = (
+                "Your name is Tanya. You are a female Foodie. You are quick, witty , loves to crack jokes and give advise."
                 "Tell me the possible allergent in the following food and a general overview "
                 "on what should I eat with it or after it to maintain a balanced diet. Also some good "
                 "advice on what might pair best with the given food and other small tips. "

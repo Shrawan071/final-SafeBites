@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Upload | AI Companion</title>
   <style>
     :root {
@@ -15,7 +16,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--secondary-color);
+      background-color: #252627;
       color: var(--text-color);
     }
 
@@ -90,6 +91,71 @@
       border-radius: 8px;
     }
 
+.containerTip {
+  border: 2px solid rgb(255, 255, 255);
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #ff6b35;  /* Your theme orange */
+  color: #fff;                /* White text */
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  max-width: 300px;
+  width: calc(100% - 2rem);   /* Prevents overflow on small screens */
+  box-sizing: border-box;
+  font-family: inherit;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.backBtn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: #ff6b35;   /* Match your theme */
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 9999;
+  transition: background-color 0.3s ease;
+}
+
+.backBtn:hover {
+  background-color: #e65a2b;   /* Slightly darker on hover */
+}
+
+
+/* Media query to adjust on very small screens */
+@media (max-width: 480px) {
+  .containerTip {
+    right: 0.5rem;
+    left: 0.5rem;
+    bottom: 0.75rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
     @media (max-width: 600px) {
       .container {
         padding: 1rem;
@@ -103,9 +169,13 @@
 </head>
 <body>
 
+  <a class="backBtn" href="{{ url_for('index') }}">← Home</a>
+
+  <p class="containerTip"> Snap or upload a photo, add your magic touch, and hit Submit!</p>
+
   <header>
-    <h1>Upload Text & Image</h1>
-    <p>Empowered by AI — Styled with painful amont of searching on the internet and giving up cuz i dont know shit about front end</p>
+    <h1>Ai Companion Foodie Tanya</h1>
+    <p>Empowered by AI — Gemini. Configured to help in your foodie Journey.</p>
   </header>
 
   <div class="container">
@@ -117,16 +187,17 @@
       </form>
     </div>
 
+
     {% if output_text %}
     <div class="result">
-      <h2>🧠 AI Response:</h2>
+      <h2> AI Response:</h2>
       <p>{{ output_text }}</p>
     </div>
     {% endif %}
 
     {% if image_url %}
     <div class="result">
-      <h2>📸 Uploaded Image:</h2>
+      <h2> Uploaded Image:</h2>
       <img src="{{ image_url }}" alt="Uploaded image preview">
     </div>
     {% endif %}
