@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webcam Stream</title>
+  <style>
+body {
+      margin: 0;
+      background-color:  #252627;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding:
+       2rem;
+    }
+
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers children horizontally */
+    margin-top: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5em;
+    background-color:  #ff6b35;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+img {
+    border: 2px solid white;
+    border-radius: 2%;
+      width: 640px;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="video-container">
+    <div class="title">Live Camera with Blue Circle</div>
+    <img src="{{ url_for('video_feed') }}" alt="Live stream">
+  </div>
+</body>
+</html>
